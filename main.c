@@ -20,6 +20,6 @@ int main(int argc, char* argv[]){
     SDL_DestroyRenderer(ecran);
     SDL_DestroyWindow(fenetre);
     SDL_Quit();
-    printf("camarche\n");
+    printf("ca marche\n");
     return 0;
 }
