@@ -1,5 +1,5 @@
-#DEFINE HUB
-#IFNDEF HUB
+#define HUB
+#ifndef HUB
 
 
-#ENDIF
+#endif
