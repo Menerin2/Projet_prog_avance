@@ -1,4 +1,3 @@
-.vscode/tasks.json
+.vscode/*
 main
-.vscode/c_cpp_properties.json
 main.o

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <stdbool.h>
-int main(int argc, char* argv[]){
+int main(){
     SDL_Window* fenetre;
     SDL_Event events;
     bool terminer = false;
