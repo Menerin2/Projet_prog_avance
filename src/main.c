@@ -3,6 +3,7 @@
 #include "main.h"
 
 void main_loop(SDL_Renderer* renderer){
+    player_t* player = create_player();
     /*  player_t* player = create_player();
     *   
     */
