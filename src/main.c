@@ -3,16 +3,22 @@
 #include "main.h"
 
 void main_loop(SDL_Renderer* renderer){
-    player_t* player = create_player();
-    /*  player_t* player = create_player();
-    *   
-    */
+    player_t* player = create_player(renderer);
+    SDL_Rect dst;
+    dst.x = 100;
+    dst.y = 100;
+    dst.w = 87;
+    dst.y = 93;
+
     while(1){
+        SDL_RenderClear(renderer);
+        SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[3], &dst);
         SDL_Event event;
         if(SDL_PollEvent(&event) && (SDL_QUIT == event.type || (SDL_KEYDOWN == event.type && SDLK_ESCAPE == event.key.keysym.sym)))
             break;
         //on va update ici les informations à l'écran / state du jeu
-        SDL_RenderClear(renderer);
+
+        
         SDL_RenderPresent(renderer);
     }
 }
@@ -26,6 +32,5 @@ int main(){
     SDL_DestroyRenderer(ecran);
     SDL_DestroyWindow(fenetre);
     SDL_Quit();
-    printf("ca marche\n");
     return 0;
 }

@@ -6,8 +6,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 //customs includes
 #include "player.h"
+#include "gestion_img.h"
 
 #endif

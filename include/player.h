@@ -6,10 +6,11 @@ typedef struct s_player {
     /* data player */
     int sizex;
     int sizey;
-    char** states; 
+    SDL_Texture* sprite;
+    SDL_Rect* src_sprite;
 } player_t;
 
 //fonctions
-player_t* create_player();
+player_t* create_player(SDL_Renderer* renderer);
 
 #endif
