@@ -10,6 +10,6 @@ typedef struct s_player {
 } player_t;
 
 //fonctions
-void create_player(player_t* player);
+player_t* create_player();
 
 #endif
