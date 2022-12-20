@@ -12,5 +12,6 @@ typedef struct s_player {
 
 //fonctions
 player_t* create_player(SDL_Renderer* renderer);
+void free_player(player_t*);
 
 #endif
