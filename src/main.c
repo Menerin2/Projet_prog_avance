@@ -3,8 +3,7 @@
 #include "main.h"
 
 void main_loop(SDL_Renderer* renderer){
-    player_t* player = init_player();
-    create_player(player);
+    player_t* player = create_player();
     while(1){
         SDL_Event event;
         if(SDL_PollEvent(&event) && (SDL_QUIT == event.type || (SDL_KEYDOWN == event.type && SDLK_ESCAPE == event.key.keysym.sym)))
