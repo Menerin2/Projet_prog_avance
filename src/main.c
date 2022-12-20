@@ -1,7 +1,6 @@
-#include <stdio.h>
-#include <SDL2/SDL.h>
+/*#include <stdio.h>
+#include <SDL2/SDL.h>*/
 #include "main.h"
-#include "player.h"
 
 void main_loop(SDL_Renderer* renderer){
     player_t* player;

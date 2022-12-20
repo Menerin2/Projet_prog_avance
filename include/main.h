@@ -1,5 +1,6 @@
-#define HUB
 #ifndef HUB
+#define HUB
+
 
 //standard includes
 #include <stdio.h>

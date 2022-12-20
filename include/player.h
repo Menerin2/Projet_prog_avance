@@ -1,5 +1,5 @@
-#define PLAYER
 #ifndef PLAYER
+#define PLAYER
 
 struct s_player;
 typedef struct s_player {

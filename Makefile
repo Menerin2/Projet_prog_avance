@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -W -Wall -ansi -std=c99 -g -I./include
+CFLAGS += -W -Wall -ansi -std=c99 -g -I./include
 LDFLAGS = `sdl2-config --cflags --libs ` -lSDL2_ttf -lSDL2_image
 LIBS = -L./SDL2_ttf/.libs -L./SDL2_image/.libs
 RM = rm -rf
