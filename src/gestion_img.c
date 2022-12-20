@@ -3,6 +3,7 @@
 SDL_Texture* loadspritesdino(SDL_Renderer* renderer){
     SDL_Surface* img = IMG_Load("../ressource/sprites.png");
     SDL_Texture* dinos = SDL_CreateTextureFromSurface(renderer, img);
+    SDL_FreeSurface(img);
     return dinos;
 }
 
