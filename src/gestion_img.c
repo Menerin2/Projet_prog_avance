@@ -1,7 +1,12 @@
 #include "main.h"
 
 SDL_Texture* loadspritesdino(SDL_Renderer* renderer){
-    SDL_Surface* img = IMG_Load("../ressource/sprites.png");
+    SDL_Surface* img = IMG_Load("./ressource/sprites.png");
+    if(img == NULL)
+    {
+        printf("Erreur de chargement de l'image : %s",SDL_GetError());
+        return NULL;
+    }
     SDL_Texture* dinos = SDL_CreateTextureFromSurface(renderer, img);
     SDL_FreeSurface(img);
     return dinos;
