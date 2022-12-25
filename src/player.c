@@ -20,5 +20,6 @@ void jump(player_t* player, SDL_Rect* dst){
     dst->y += player->in_movement*10;
     if(dst->y > 300 - 87/2){
         player->in_movement = 0;
+        dst->y = 300-87/2;
     }
 } 
