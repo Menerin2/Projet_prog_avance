@@ -30,12 +30,3 @@ SDL_Rect loadplayerposition(){
     dst.h = 93;
     return(dst);
 }
-
-SDL_Rect loadallsprites(int x){
-    SDL_Rect* all_sprites = malloc(sizeof(SDL_Rect) * 6);
-    all_sprites[0].h = 70;
-    all_sprites[0].w = 34;
-    all_sprites[0].x = 446;
-    all_sprites[0].y = 2;
-    return (all_sprites[x]);
-}
