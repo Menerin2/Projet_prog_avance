@@ -15,7 +15,7 @@ SDL_Texture* loadspritesdino(SDL_Renderer* renderer){
 SDL_Rect* loadspritesplayerposition(){
     SDL_Rect* src_sprite = malloc(sizeof(SDL_Rect) * 6);
     for(int i = 0; i < 6; i++){
-        src_sprite[i].h = 93;
+        src_sprite[i].h = 94;
         src_sprite[i].w = 87;
         src_sprite[i].x = 1338 + (src_sprite[i].w * i);
         src_sprite[i].y = 2;
@@ -24,17 +24,18 @@ SDL_Rect* loadspritesplayerposition(){
 }
 SDL_Rect loadplayerposition(){
     SDL_Rect dst;
-    dst.x = 300 - 87/2;
-    dst.y = 300 - 93/2;
+    dst.x = 300 - 94 /2;
+    dst.y = 300 - 87/2;
     dst.w = 87;
     dst.h = 93;
     return(dst);
 }
 
-
-/*
-SDL_Rect* loadallsprites(int x){
-    SDL_Rect** all_sprites = malloc(sizeof(SDL_Rect*) * 21);
-    for(int i = 0; i < 21)
-    return all_sprites[x];
-}*/
+SDL_Rect loadallsprites(int x){
+    SDL_Rect* all_sprites = malloc(sizeof(SDL_Rect) * 6);
+    all_sprites[0].h = 70;
+    all_sprites[0].w = 34;
+    all_sprites[0].x = 446;
+    all_sprites[0].y = 2;
+    return (all_sprites[x]);
+}
