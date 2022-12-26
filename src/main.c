@@ -4,15 +4,11 @@
 
 void main_loop(SDL_Renderer* renderer){
     player_t* player = create_player(renderer);
-    SDL_Rect dst;
-    dst.x = 300 - 87/2;
-    dst.y = 300 - 93/2;
-    dst.w = 87;
-    dst.h = 93;
+    
     bool end = true;
     while(end){
         SDL_RenderClear(renderer);
-        SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[0], &dst);
+        SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[0], &player->dst);
         SDL_Event event;
         SDL_PollEvent(&event);
         switch(event.type)
@@ -32,7 +28,7 @@ void main_loop(SDL_Renderer* renderer){
                     break;
                 }
         }
-        jump(player, &dst);
+        jump(player);
         //on va update ici les informations à l'écran / state du jeu
         SDL_RenderPresent(renderer);
         SDL_Delay(50);

@@ -12,7 +12,7 @@ SDL_Texture* loadspritesdino(SDL_Renderer* renderer){
     return dinos;
 }
 
-SDL_Rect* loadspritesposition(){
+SDL_Rect* loadspritesplayerposition(){
     SDL_Rect* src_sprite = malloc(sizeof(SDL_Rect) * 6);
     for(int i = 0; i < 6; i++){
         src_sprite[i].h = 93;
@@ -22,3 +22,19 @@ SDL_Rect* loadspritesposition(){
     }
     return(src_sprite);
 }
+SDL_Rect loadplayerposition(){
+    SDL_Rect dst;
+    dst.x = 300 - 87/2;
+    dst.y = 300 - 93/2;
+    dst.w = 87;
+    dst.h = 93;
+    return(dst);
+}
+
+
+/*
+SDL_Rect* loadallsprites(int x){
+    SDL_Rect** all_sprites = malloc(sizeof(SDL_Rect*) * 21);
+    for(int i = 0; i < 21)
+    return all_sprites[x];
+}*/
