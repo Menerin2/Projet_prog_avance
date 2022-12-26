@@ -9,7 +9,7 @@ void render_all(SDL_Renderer* renderer, player_t* player){
 
 void main_loop(SDL_Renderer* renderer){
     player_t* player = create_player(renderer);
-    //armada_t* ennemies = initialisation_ennemies();
+    armada_t* ennemies = initialisation_ennemies(renderer);
     bool end = true;
     while(end){
         SDL_RenderClear(renderer);

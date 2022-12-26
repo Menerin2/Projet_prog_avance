@@ -3,7 +3,7 @@
 
 typedef struct s_link link_t;
 struct s_link {
-    ennemi_t guy;
+    ennemi_t* guy;
     SDL_Rect dst;
     link_t* next;
 };
@@ -12,8 +12,10 @@ typedef struct s_armada {
     link_t* first;
 }armada_t;
 
+armada_t* initialisation_ennemies(SDL_Renderer* renderer);
+
 /* fonctions à faire
-    armada_t* initialisation_ennemies();
+    armada_t* initialisation_ennemies(SDL_Renderer renderer);
     crée la list et crée le premier ennemi qui sera set à null
     ce premier ennemi restera à la fin car pendant toute la creation de la liste
     on rajoutera les nouveaux ennemis en première place.

@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <time.h>
 
 //customs includes
 #include "player.h"
