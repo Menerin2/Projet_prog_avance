@@ -24,6 +24,14 @@ void jump(player_t* player){
         player->dst.y = 300 - 94/2;
     }
 }
+/*
+bool collisions(player_t* player, armada_t* ennemies){
+    
+    comparaison de collision de
+    player->dst et de ennemies->first->dst
+    
+}*/
+
 ennemi_t** create_ennemies(SDL_Renderer* renderer){
     ennemi_t** ennemies = malloc(sizeof(ennemi_t)* 6);
     SDL_Texture* all = loadspritesdino(renderer);

@@ -12,5 +12,6 @@
 //customs includes
 #include "player.h"
 #include "gestion_img.h"
+#include "list.h"
 
 #endif
