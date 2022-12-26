@@ -1,7 +1,6 @@
 #ifndef PLAYER
 #define PLAYER
 
-struct s_player;
 typedef struct s_player {
     /* data player */
     SDL_Texture* sprite;
@@ -9,6 +8,8 @@ typedef struct s_player {
     SDL_Rect dst;
     int in_movement;
 } player_t;
+
+
 
 //fonctions
 player_t* create_player(SDL_Renderer* renderer);

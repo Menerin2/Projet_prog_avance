@@ -4,7 +4,6 @@
 
 void main_loop(SDL_Renderer* renderer){
     player_t* player = create_player(renderer);
-    
     bool end = true;
     while(end){
         SDL_RenderClear(renderer);
@@ -29,7 +28,6 @@ void main_loop(SDL_Renderer* renderer){
                 }
         }
         jump(player);
-        //on va update ici les informations à l'écran / state du jeu
         SDL_RenderPresent(renderer);
         SDL_Delay(50);
     }
