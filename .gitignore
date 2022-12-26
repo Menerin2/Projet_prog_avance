@@ -3,3 +3,4 @@ dyno
 player.o
 main.o
 gestion_img.o
+list.o
