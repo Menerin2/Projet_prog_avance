@@ -2,7 +2,7 @@
 
 armada_t* initialisation_ennemies(SDL_Renderer* renderer){
     //choix des type/nombre d'ennemis, à faire en lecture de .txt plus tard
-    int nbr_ennemis = 20;
+    int nbr_ennemis = 7;
     srand(time(NULL));
     int* type = malloc(sizeof(int)* nbr_ennemis);
     for(int i = 0; i < nbr_ennemis; i++){
@@ -33,4 +33,29 @@ void insert_first(armada_t* ennemies, ennemi_t* kind, SDL_Rect dst){
     new_link->dst = dst;
     new_link->next = ennemies->first;
     ennemies->first = new_link;
+}
+
+void update_list(armada_t* ennemies){
+    if(ennemies->first->dst.x < 0){
+        link_t* temp = malloc(sizeof(link_t));
+        memcpy(temp, ennemies->first, sizeof(link_t));
+        delete_first(ennemies);
+        insert_last(ennemies, temp);
+    }
+}
+
+void delete_first(armada_t* ennemies){
+    link_t* temp = ennemies->first;
+    ennemies->first = temp->next;
+    free(temp);
+}
+
+void insert_last(armada_t* ennemies, link_t* last_link){
+    last_link->next = NULL;
+    link_t* temp = ennemies->first;
+    while(temp->next != NULL){
+        temp = temp->next;
+    }
+    last_link->dst.x = temp->dst.x + 400;
+    temp->next = last_link;
 }

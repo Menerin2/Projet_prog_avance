@@ -14,6 +14,10 @@ typedef struct s_armada {
 
 armada_t* initialisation_ennemies(SDL_Renderer* renderer);
 void insert_first(armada_t* ennemies, ennemi_t* kind, SDL_Rect dst);
+void update_list(armada_t* ennemies);
+void delete_first(armada_t* ennemies);
+void insert_last(armada_t* ennemies, link_t* last_link);
+
 /* fonctions à faire
     armada_t* initialisation_ennemies(SDL_Renderer renderer);
     crée la list et crée le premier ennemi qui sera set à null

@@ -1,6 +1,13 @@
 #include "main.h"
 
-/*void move(armada_t* ennemies){}*/
+void move(armada_t* ennemies){
+    link_t* temp = ennemies->first;
+    while(temp != NULL){
+        temp->dst.x -= 10;
+        temp = temp->next;
+    }
+    update_list(ennemies);
+}
 
 void render_all(SDL_Renderer* renderer, player_t* player, armada_t* ennemies){
     SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[0], &player->dst);
@@ -39,9 +46,7 @@ void main_loop(SDL_Renderer* renderer){
                 }
         }
         jump(player);
-        /*move(ennemies); deplace chaque link_t->dst de la liste de une valeur fixe, qui augmentera au fil de la partie
-                          si le premier element est déplacé derrière le dino, on le remets à la fin de la liste armada_t
-        */
+        move(ennemies);
         //end = collisions(player, ennemies); = true si pas de collisions
         render_all(renderer, player, ennemies);
         SDL_RenderPresent(renderer);
