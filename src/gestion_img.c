@@ -24,7 +24,7 @@ SDL_Rect* loadspritesplayerposition(){
 }
 SDL_Rect loadplayerposition(){
     SDL_Rect dst;
-    dst.x = 300 - 94/2;
+    dst.x = 100 - 94/2;
     dst.y = 300 - 87/2;
     dst.w = 87;
     dst.h = 94;
