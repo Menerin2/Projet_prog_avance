@@ -1,5 +1,24 @@
 #include "main.h"
 
+bool collisions(SDL_Rect A, SDL_Rect B){
+    int leftA = A.x;
+    int rightA = A.x + A.w;
+    int topA = A.y;
+    int botA = A.y + A.h;
+    int leftB = B.x;
+    int rightB = B.x + B.w;
+    int topB = B.y;
+    int botB = B.y + B.h;
+    //mtnt pour le if de l'enfer
+    if (botA <= topB ||
+        topA >= botB ||
+        rightA <= leftB ||
+        leftA >= rightB){
+            return true;
+        }
+    return false;
+}
+
 void move(armada_t* ennemies){
     link_t* temp = ennemies->first;
     while(temp != NULL){
@@ -47,7 +66,7 @@ void main_loop(SDL_Renderer* renderer){
         }
         jump(player);
         move(ennemies);
-        //end = collisions(player, ennemies); = true si pas de collisions
+        end = collisions(player->dst, ennemies->first->dst);
         render_all(renderer, player, ennemies);
         SDL_RenderPresent(renderer);
         SDL_Delay(50);
