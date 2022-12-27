@@ -2,9 +2,15 @@
 
 /*void move(armada_t* ennemies){}*/
 
-void render_all(SDL_Renderer* renderer, player_t* player){
+void render_all(SDL_Renderer* renderer, player_t* player, armada_t* ennemies){
     SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[0], &player->dst);
-    //add renders of ennemies
+    link_t* temp = ennemies->first;
+    if(temp != NULL){
+        for(int i = 0; i < 4 && temp != NULL; i++){ //4 est just temp pour voir si les 4 premier ca suffit
+            SDL_RenderCopy(renderer, temp->guy->sprite, &temp->guy->src, &temp->dst);
+            temp = temp->next;
+        }
+    }
 }
 
 void main_loop(SDL_Renderer* renderer){
@@ -37,7 +43,7 @@ void main_loop(SDL_Renderer* renderer){
                           si le premier element est déplacé derrière le dino, on le remets à la fin de la liste armada_t
         */
         //end = collisions(player, ennemies); = true si pas de collisions
-        render_all(renderer, player);
+        render_all(renderer, player, ennemies);
         SDL_RenderPresent(renderer);
         SDL_Delay(50);
     }
@@ -47,7 +53,7 @@ void main_loop(SDL_Renderer* renderer){
 int main(){
     IMG_Init(IMG_INIT_PNG);
     SDL_Window* fenetre;
-    fenetre = SDL_CreateWindow("Pr Avancé", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 600, SDL_WINDOW_RESIZABLE);
+    fenetre = SDL_CreateWindow("Pr Avancé", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 1600, SDL_WINDOW_RESIZABLE);
     SDL_Renderer* ecran = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
     //SDL_SetRenderDrawColor(ecran, 255, 255, 255, 255);
     main_loop(ecran);

@@ -33,7 +33,10 @@ bool collisions(player_t* player, armada_t* ennemies){
 }*/
 
 ennemi_t** create_ennemies(SDL_Renderer* renderer){
-    ennemi_t** ennemies = malloc(sizeof(ennemi_t)* 6);
+    ennemi_t** ennemies = malloc(sizeof(ennemi_t*)* 6);
+    for(int i = 0; i < 6; i++){
+        ennemies[i] = (ennemi_t*)malloc(sizeof(ennemi_t));
+    }
     SDL_Texture* all = loadspritesdino(renderer);
     for(int i = 0; i < 6; i++){
         ennemies[i]->sprite = all;
@@ -74,6 +77,7 @@ ennemi_t** create_ennemies(SDL_Renderer* renderer){
     ennemies[5]->src.h = 96;
     ennemies[5]->src.w = 150;
     ennemies[5]->src.x = 802;
-    ennemies[6]->src.y = 2;
-    return ennemies;
+    ennemies[5]->src.y = 2;
+
+    return (ennemies);
 }
