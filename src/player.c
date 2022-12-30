@@ -6,6 +6,7 @@ player_t* create_player(SDL_Renderer* renderer){
     dino->src_sprite = loadspritesplayerposition();
     dino->dst = loadplayerposition();
     dino->in_movement = 0;
+    dino->speed = 0;
     return dino;
 }
 
@@ -15,12 +16,14 @@ void free_player(player_t* player){
 }
 
 void jump(player_t* player){
-    if(player->dst.y < 200){
+    if(player->speed < 0.01){
         player->in_movement = 1;
     }
-    player->dst.y += player->in_movement*10;
+    player->dst.y += player->in_movement*player->speed;
+    player->speed += player->in_movement * 0.5;
     if(player->dst.y > 300 - 94/2){
         player->in_movement = 0;
+        player->speed = 0;
         player->dst.y = 300 - 94/2;
     }
 }

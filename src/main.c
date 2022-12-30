@@ -58,9 +58,10 @@ void main_loop(SDL_Renderer* renderer){
                     case SDLK_ESCAPE:
                     end=false;
                     break;
-                    case SDLK_SPACE:
+                    case SDLK_a:
                     if(player->in_movement == 0){
-                        player->in_movement = -1;}
+                        player->in_movement = -1;
+                        player->speed = 10;}
                     break;
                 }
         }
