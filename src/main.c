@@ -58,7 +58,7 @@ void main_loop(SDL_Renderer* renderer){
                     case SDLK_ESCAPE:
                     end=false;
                     break;
-                    case SDLK_a:
+                    case SDLK_SPACE:
                     if(player->in_movement == 0){
                         player->in_movement = -1;
                         player->speed = 10;}
@@ -67,7 +67,7 @@ void main_loop(SDL_Renderer* renderer){
         }
         jump(player);
         move(ennemies);
-        end = collisions(player->dst, ennemies->first->dst);
+        //end = collisions(player->dst, ennemies->first->dst);
         render_all(renderer, player, ennemies);
         SDL_RenderPresent(renderer);
         SDL_Delay(50);

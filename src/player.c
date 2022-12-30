@@ -26,6 +26,7 @@ void jump(player_t* player){
         player->speed = 0;
         player->dst.y = 300 - 94/2;
     }
+    printf("mvmt: %d , speed : %f\n", player->in_movement, player->speed);
 }
 
 ennemi_t** create_ennemies(SDL_Renderer* renderer){
