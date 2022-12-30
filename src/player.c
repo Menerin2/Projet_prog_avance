@@ -16,7 +16,7 @@ void free_player(player_t* player){
 }
 
 void jump(player_t* player){
-    if(player->speed < 0.01){
+    if(player->speed < 0){
         player->in_movement = 1;
     }
     player->dst.y += player->in_movement*player->speed;
@@ -26,7 +26,7 @@ void jump(player_t* player){
         player->speed = 0;
         player->dst.y = 300 - 94/2;
     }
-    printf("mvmt: %d , speed : %f\n", player->in_movement, player->speed);
+    //printf("mvmt: %d , speed : %.1f\n", player->in_movement, player->speed);
 }
 
 ennemi_t** create_ennemies(SDL_Renderer* renderer){
