@@ -15,8 +15,10 @@ typedef struct s_player {
 typedef struct s_ennemi {
     /*data single ennemi*/
     SDL_Texture* sprite;
-    SDL_Rect src;
+    SDL_Rect* src;
     int speed;
+    bool fly;
+    int frame;
 }ennemi_t;
 
 

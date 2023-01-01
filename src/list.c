@@ -2,11 +2,11 @@
 
 armada_t* initialisation_ennemies(SDL_Renderer* renderer){
     //choix des type/nombre d'ennemis, à faire en lecture de .txt plus tard
-    int nbr_ennemis = 8;
+    int nbr_ennemis = 20;
     srand(time(NULL));
     int* type = malloc(sizeof(int)* nbr_ennemis);
     for(int i = 0; i < nbr_ennemis; i++){
-        type[i] = rand() % 6;
+        type[i] = rand() % 7;
     }
     //set des positions; to be changed
     SDL_Rect dest_temp;
@@ -19,9 +19,12 @@ armada_t* initialisation_ennemies(SDL_Renderer* renderer){
     ennemi_t** kind = create_ennemies(renderer);
     for(int i = 0; i < nbr_ennemis; i++){
         dest_temp.x = (800 * nbr_ennemis) - (i * 800);
-        dest_temp.y = 300 - kind[type[i]]->src.h; // à changer pour mettre à niveau
-        dest_temp.h = kind[type[i]]->src.h;
-        dest_temp.w = kind[type[i]]->src.w;
+        dest_temp.y = 300 - kind[type[i]]->src[0].h; // à changer pour mettre à niveau
+        dest_temp.h = kind[type[i]]->src[0].h;
+        dest_temp.w = kind[type[i]]->src[0].w;
+        if(kind[type[i]]->fly){
+            dest_temp.y = 230 - kind[type[i]]->src[0].h + (60 * (i%2)); //'random' pour oiseaux haut ou bas
+        }
         insert_first(ennemies, kind[type[i]], dest_temp);
     }
     return(ennemies);

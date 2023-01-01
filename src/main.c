@@ -42,13 +42,24 @@ int animation_player(player_t* player){
     return i; 
 }
 
+int animation_bird(ennemi_t* bird){
+    if (!bird->fly){
+        return 0;
+    }
+    bird->frame++;
+    if(bird->frame >= 30){bird->frame = 0;}
+    return bird->frame < 15 ? 0 : 1;
+
+}
+
 void render_all(SDL_Renderer* renderer, player_t* player, armada_t* ennemies){
     int frame = animation_player(player);
     SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[frame], &player->dst[player->crouch]);
     link_t* temp = ennemies->first;
     if(temp != NULL){
-        for(int i = 0; i < 3 && temp != NULL; i++){ //4 est just temp pour voir si les 4 premier ca suffit
-            SDL_RenderCopy(renderer, temp->guy->sprite, &temp->guy->src, &temp->dst);
+        for(int i = 0; i < 5 && temp != NULL; i++){ //n'affiche que ceux qui sont sucesptible d'apparaitre à l'écran
+            frame = animation_bird(temp->guy);
+            SDL_RenderCopy(renderer, temp->guy->sprite, &temp->guy->src[frame], &temp->dst);
             temp = temp->next;
         }
     }
