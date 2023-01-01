@@ -20,11 +20,11 @@ void jump(player_t* player){
         player->in_movement = 1;
     }
     player->dst.y += player->in_movement*player->speed;
-    player->speed += player->in_movement * 0.5;
-    if(player->dst.y > 300 - 94/2){
+    player->speed += player->in_movement * 0.4;
+    if(player->dst.y > 300 - 94){
         player->in_movement = 0;
         player->speed = 0;
-        player->dst.y = 300 - 94/2;
+        player->dst.y = 300 - 94;
     }
     //printf("mvmt: %d , speed : %.1f\n", player->in_movement, player->speed);
 }
@@ -40,6 +40,7 @@ ennemi_t** create_ennemies(SDL_Renderer* renderer){
         ennemies[i]->src.w = dimensions[i]->w;
         ennemies[i]->src.x = dimensions[i]->x;
         ennemies[i]->src.y = dimensions[i]->y;
+        ennemies[i]->speed = 10;
     }
 
     //les données seront plus tard dans un fichier text et à parser

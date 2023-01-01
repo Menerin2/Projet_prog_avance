@@ -14,6 +14,7 @@ typedef struct s_ennemi {
     /*data single ennemi*/
     SDL_Texture* sprite;
     SDL_Rect src;
+    int speed;
 }ennemi_t;
 
 

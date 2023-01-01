@@ -19,20 +19,20 @@ bool collisions(SDL_Rect A, SDL_Rect B){
     return false;
 }
 
-void move(armada_t* ennemies){
+void move(armada_t* ennemies, int* score){
     link_t* temp = ennemies->first;
     while(temp != NULL){
-        temp->dst.x -= 10;
+        temp->dst.x -= temp->guy->speed;
         temp = temp->next;
     }
-    update_list(ennemies);
+    update_list(ennemies, score);
 }
 
 void render_all(SDL_Renderer* renderer, player_t* player, armada_t* ennemies){
     SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[0], &player->dst);
     link_t* temp = ennemies->first;
     if(temp != NULL){
-        for(int i = 0; i < 4 && temp != NULL; i++){ //4 est just temp pour voir si les 4 premier ca suffit
+        for(int i = 0; i < 5 && temp != NULL; i++){ //4 est just temp pour voir si les 4 premier ca suffit
             SDL_RenderCopy(renderer, temp->guy->sprite, &temp->guy->src, &temp->dst);
             temp = temp->next;
         }
@@ -42,11 +42,14 @@ void render_all(SDL_Renderer* renderer, player_t* player, armada_t* ennemies){
 void main_loop(SDL_Renderer* renderer){
     player_t* player = create_player(renderer);
     armada_t* ennemies = initialisation_ennemies(renderer);
+    int* score = malloc(sizeof(int));
+    *score = 0;
     bool end = true;
     while(end){
         SDL_RenderClear(renderer);
         SDL_Event event;
         SDL_PollEvent(&event);
+        end = collisions(player->dst, ennemies->first->dst);
         switch(event.type)
         {
             case SDL_QUIT:
@@ -66,13 +69,13 @@ void main_loop(SDL_Renderer* renderer){
                 }
         }
         jump(player);
-        move(ennemies);
-        //end = collisions(player->dst, ennemies->first->dst);
+        move(ennemies, score);
         render_all(renderer, player, ennemies);
         SDL_RenderPresent(renderer);
-        SDL_Delay(50);
+        SDL_Delay(40);
     }
     free_player(player);
+    printf("score = %d\n", *score);
 }
 
 int main(){
@@ -80,7 +83,7 @@ int main(){
     SDL_Window* fenetre;
     fenetre = SDL_CreateWindow("Pr Avancé", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 1600, SDL_WINDOW_RESIZABLE);
     SDL_Renderer* ecran = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
-    //SDL_SetRenderDrawColor(ecran, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(ecran, 255, 255, 255, 255);
     main_loop(ecran);
     SDL_DestroyRenderer(ecran);
     SDL_DestroyWindow(fenetre);
