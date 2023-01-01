@@ -18,7 +18,7 @@ armada_t* initialisation_ennemies(SDL_Renderer* renderer){
     //remplissage des links
     ennemi_t** kind = create_ennemies(renderer);
     for(int i = 0; i < nbr_ennemis; i++){
-        dest_temp.x = (600 * nbr_ennemis) - (i * 600);
+        dest_temp.x = (800 * nbr_ennemis) - (i * 800);
         dest_temp.y = 300 - kind[type[i]]->src.h; // à changer pour mettre à niveau
         dest_temp.h = kind[type[i]]->src.h;
         dest_temp.w = kind[type[i]]->src.w;
@@ -36,7 +36,7 @@ void insert_first(armada_t* ennemies, ennemi_t* kind, SDL_Rect dst){
 }
 
 void update_list(armada_t* ennemies, int* score){
-    if(ennemies->first->dst.x < 0){
+    if(ennemies->first->dst.x < -ennemies->first->dst.w){
         link_t* temp = malloc(sizeof(link_t));
         memcpy(temp, ennemies->first, sizeof(link_t));
         delete_first(ennemies);
@@ -57,6 +57,6 @@ void insert_last(armada_t* ennemies, link_t* last_link){
     while(temp->next != NULL){
         temp = temp->next;
     }
-    last_link->dst.x = temp->dst.x + 600;
+    last_link->dst.x = temp->dst.x + 800;
     temp->next = last_link;
 }

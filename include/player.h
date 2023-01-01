@@ -8,6 +8,7 @@ typedef struct s_player {
     SDL_Rect dst;
     int in_movement;
     double speed;
+    int frame;
 } player_t;
 
 typedef struct s_ennemi {

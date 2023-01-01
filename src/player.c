@@ -7,6 +7,7 @@ player_t* create_player(SDL_Renderer* renderer){
     dino->dst = loadplayerposition();
     dino->in_movement = 0;
     dino->speed = 0;
+    dino->frame = 0;
     return dino;
 }
 

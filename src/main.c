@@ -28,11 +28,23 @@ void move(armada_t* ennemies, int* score){
     update_list(ennemies, score);
 }
 
+int animation_player(player_t* player){
+    player->frame++;
+    int i;
+    if(player->frame >= 20){player->frame = 0;}
+    i = player->frame < 10 ? 2 : 3;
+    if(player->in_movement != 0){
+        i = player->in_movement == -1 ? 2 : 3;
+    }
+    return i; 
+}
+
 void render_all(SDL_Renderer* renderer, player_t* player, armada_t* ennemies){
-    SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[0], &player->dst);
+    int frame = animation_player(player);
+    SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[frame], &player->dst);
     link_t* temp = ennemies->first;
     if(temp != NULL){
-        for(int i = 0; i < 5 && temp != NULL; i++){ //4 est just temp pour voir si les 4 premier ca suffit
+        for(int i = 0; i < 3 && temp != NULL; i++){ //4 est just temp pour voir si les 4 premier ca suffit
             SDL_RenderCopy(renderer, temp->guy->sprite, &temp->guy->src, &temp->dst);
             temp = temp->next;
         }
