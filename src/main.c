@@ -31,17 +31,20 @@ void move(armada_t* ennemies, int* score){
 int animation_player(player_t* player){
     player->frame++;
     int i;
-    if(player->frame >= 20){player->frame = 0;}
-    i = player->frame < 10 ? 2 : 3;
+    if(player->frame >= 10){player->frame = 0;}
+    i = player->frame < 5 ? 2 : 3;
     if(player->in_movement != 0){
         i = player->in_movement == -1 ? 2 : 3;
+    }
+    if(player->crouch){
+        i += 4;
     }
     return i; 
 }
 
 void render_all(SDL_Renderer* renderer, player_t* player, armada_t* ennemies){
     int frame = animation_player(player);
-    SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[frame], &player->dst);
+    SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[frame], &player->dst[player->crouch]);
     link_t* temp = ennemies->first;
     if(temp != NULL){
         for(int i = 0; i < 3 && temp != NULL; i++){ //4 est just temp pour voir si les 4 premier ca suffit
@@ -61,7 +64,7 @@ void main_loop(SDL_Renderer* renderer){
         SDL_RenderClear(renderer);
         SDL_Event event;
         SDL_PollEvent(&event);
-        end = collisions(player->dst, ennemies->first->dst);
+        end = collisions(player->dst[player->crouch], ennemies->first->dst);
         switch(event.type)
         {
             case SDL_QUIT:
@@ -74,10 +77,20 @@ void main_loop(SDL_Renderer* renderer){
                     end=false;
                     break;
                     case SDLK_SPACE:
-                    if(player->in_movement == 0){
+                    if(player->in_movement == 0 && !player->crouch){
                         player->in_movement = -1;
                         player->speed = 10;}
                     break;
+                    case SDLK_LSHIFT:
+                    if(player->in_movement == 0){
+                        player->crouch = 1;
+                    }
+                    break;
+                }
+                break;
+            case SDL_KEYUP:
+                if(event.key.keysym.sym == SDLK_LSHIFT){
+                    player->crouch = 0;
                 }
         }
         jump(player);

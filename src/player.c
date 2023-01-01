@@ -8,6 +8,7 @@ player_t* create_player(SDL_Renderer* renderer){
     dino->in_movement = 0;
     dino->speed = 0;
     dino->frame = 0;
+    dino->crouch = 0;
     return dino;
 }
 
@@ -20,12 +21,12 @@ void jump(player_t* player){
     if(player->speed < 0){
         player->in_movement = 1;
     }
-    player->dst.y += player->in_movement*player->speed;
+    player->dst[0].y += player->in_movement*player->speed;
     player->speed += player->in_movement * 0.4;
-    if(player->dst.y > 300 - 94){
+    if(player->dst[0].y > 300 - 94){
         player->in_movement = 0;
         player->speed = 0;
-        player->dst.y = 300 - 94;
+        player->dst[0].y = 300 - 94;
     }
     //printf("mvmt: %d , speed : %.1f\n", player->in_movement, player->speed);
 }

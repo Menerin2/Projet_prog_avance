@@ -5,10 +5,11 @@ typedef struct s_player {
     /* data player */
     SDL_Texture* sprite;
     SDL_Rect* src_sprite;
-    SDL_Rect dst;
+    SDL_Rect* dst;
     int in_movement;
     double speed;
     int frame;
+    int crouch;
 } player_t;
 
 typedef struct s_ennemi {
