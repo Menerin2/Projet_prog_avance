@@ -4,4 +4,4 @@ player.o
 main.o
 gestion_img.o
 list.o
-src/readables.o
+readables.o

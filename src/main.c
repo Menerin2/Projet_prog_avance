@@ -22,7 +22,7 @@ bool collisions(SDL_Rect A, SDL_Rect B){
 void move(armada_t* ennemies, int* score){
     link_t* temp = ennemies->first;
     while(temp != NULL){
-        temp->dst.x -= temp->guy->speed;
+        temp->dst.x -= 10;
         temp = temp->next;
     }
     update_list(ennemies, score);
