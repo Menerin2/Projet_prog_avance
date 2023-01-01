@@ -19,13 +19,19 @@ bool collisions(SDL_Rect A, SDL_Rect B){
     return false;
 }
 
-void move(armada_t* ennemies, int* score){
+void move(armada_t* ennemies, int* score, bg_t** backg){
     link_t* temp = ennemies->first;
     while(temp != NULL){
         temp->dst.x -= 10;
         temp = temp->next;
     }
     update_list(ennemies, score);
+    for(int i = 0; i < 2; i++){
+        backg[i]->dst.x -= 10;
+        if(backg[i]->dst.x <= -backg[i]->src.w){
+            backg[i]->dst.x += 2 * (backg[i]->src.w);
+        }
+    }
 }
 
 int animation_player(player_t* player){
@@ -52,7 +58,7 @@ int animation_bird(ennemi_t* bird){
 
 }
 
-void render_all(SDL_Renderer* renderer, player_t* player, armada_t* ennemies){
+void render_all(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_t** backg){
     int frame = animation_player(player);
     SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[frame], &player->dst[player->crouch]);
     link_t* temp = ennemies->first;
@@ -63,11 +69,15 @@ void render_all(SDL_Renderer* renderer, player_t* player, armada_t* ennemies){
             temp = temp->next;
         }
     }
+    for(int i = 0; i < 2; i++){
+        SDL_RenderCopy(renderer, backg[i]->sprite, &backg[i]->src, &backg[i]->dst);
+    }
 }
 
 void main_loop(SDL_Renderer* renderer){
     player_t* player = create_player(renderer);
     armada_t* ennemies = initialisation_ennemies(renderer);
+    bg_t** background = init_backgrounds(renderer);
     int* score = malloc(sizeof(int));
     *score = 0;
     bool end = true;
@@ -76,14 +86,12 @@ void main_loop(SDL_Renderer* renderer){
         SDL_Event event;
         SDL_PollEvent(&event);
         end = collisions(player->dst[player->crouch], ennemies->first->dst);
-        switch(event.type)
-        {
+        switch(event.type){
             case SDL_QUIT:
                 end = false;
                 break;
             case SDL_KEYDOWN:
-                switch(event.key.keysym.sym)
-                {
+                switch(event.key.keysym.sym){
                     case SDLK_ESCAPE:
                     end=false;
                     break;
@@ -105,8 +113,8 @@ void main_loop(SDL_Renderer* renderer){
                 }
         }
         jump(player);
-        move(ennemies, score);
-        render_all(renderer, player, ennemies);
+        move(ennemies, score, background);
+        render_all(renderer, player, ennemies, background);
         SDL_RenderPresent(renderer);
         SDL_Delay(40);
     }

@@ -17,6 +17,7 @@ void free_player(player_t* player){
     free(player);
 }
 
+
 void jump(player_t* player){
     if(player->speed < 0){
         player->in_movement = 1;
@@ -43,7 +44,6 @@ ennemi_t** create_ennemies(SDL_Renderer* renderer){
         ennemies[i]->src[0].w = dimensions[i]->w;
         ennemies[i]->src[0].x = dimensions[i]->x;
         ennemies[i]->src[0].y = dimensions[i]->y;
-        ennemies[i]->speed = 10;
         ennemies[i]->fly = false;
         ennemies[i]->frame = 0;
     }

@@ -2,7 +2,7 @@
 
 armada_t* initialisation_ennemies(SDL_Renderer* renderer){
     //choix des type/nombre d'ennemis, à faire en lecture de .txt plus tard
-    int nbr_ennemis = 20;
+    int nbr_ennemis = 50;
     srand(time(NULL));
     int* type = malloc(sizeof(int)* nbr_ennemis);
     for(int i = 0; i < nbr_ennemis; i++){

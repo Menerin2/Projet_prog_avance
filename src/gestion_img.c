@@ -38,3 +38,26 @@ SDL_Rect* loadplayerposition(){
     }
     return(dst);
 }
+
+SDL_Rect loadBgSrc(){
+    SDL_Rect src;
+    src.h = 23;
+    src.w = 2399;
+    src.x = 2;
+    src.y = 104;
+    return src;
+}
+
+bg_t** init_backgrounds(SDL_Renderer* renderer){
+    bg_t** bgs = malloc(sizeof(bg_t*) * 2);
+    for(int i = 0; i < 2; i++){
+        bgs[i] = (bg_t*)malloc(sizeof(bg_t));
+        bgs[i]->sprite = loadspritesdino(renderer);
+        bgs[i]->src = loadBgSrc();
+        bgs[i]->dst.h = bgs[i]->src.h;
+        bgs[i]->dst.w = bgs[i]->src.w;
+        bgs[i]->dst.x = 0 + (i * bgs[i]->src.w);
+        bgs[i]->dst.y = 292;
+    }
+    return bgs;
+}
