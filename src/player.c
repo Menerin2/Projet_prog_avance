@@ -30,16 +30,21 @@ void jump(player_t* player){
 }
 
 ennemi_t** create_ennemies(SDL_Renderer* renderer){
+    SDL_Texture* all = loadspritesdino(renderer);
+    rinfo_t** dimensions = read_infos();
     ennemi_t** ennemies = malloc(sizeof(ennemi_t*)* 6);
     for(int i = 0; i < 6; i++){
         ennemies[i] = (ennemi_t*)malloc(sizeof(ennemi_t));
-    }
-    SDL_Texture* all = loadspritesdino(renderer);
-    for(int i = 0; i < 6; i++){
         ennemies[i]->sprite = all;
+        ennemies[i]->src.h = dimensions[i]->h;
+        ennemies[i]->src.w = dimensions[i]->w;
+        ennemies[i]->src.x = dimensions[i]->x;
+        ennemies[i]->src.y = dimensions[i]->y;
     }
+
     //les données seront plus tard dans un fichier text et à parser
     //-> permettra de tout boucler
+    /*
     //single small cactus = 0
     ennemies[0]->src.h = 70;
     ennemies[0]->src.w = 34;
@@ -75,6 +80,6 @@ ennemi_t** create_ennemies(SDL_Renderer* renderer){
     ennemies[5]->src.w = 150;
     ennemies[5]->src.x = 802;
     ennemies[5]->src.y = 2;
-
+    */
     return (ennemies);
 }
