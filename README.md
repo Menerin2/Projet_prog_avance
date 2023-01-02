@@ -1,6 +1,14 @@
 # Projet_prog_avance
-makefile a les règles
+le makefile a les règles :
 -make
 -make clean
 -make fclean
 -make re
+
+une fois compilé avec make, il faut exécuter avec:
+./dyno
+
+les inputs du jeu sont:
+sauter/rejouer: barre espace
+s'accroupir: Lshift
+mourir/quitter: echap
