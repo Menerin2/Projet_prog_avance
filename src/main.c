@@ -22,12 +22,12 @@ bool collisions(SDL_Rect A, SDL_Rect B){
 void move(armada_t* ennemies, score_t* score, bg_t** backg){
     link_t* temp = ennemies->first;
     while(temp != NULL){
-        temp->dst.x -= 10;
+        temp->dst.x -= 10 + (score->current / 10);
         temp = temp->next;
     }
     update_list(ennemies, score);
     for(int i = 0; i < 2; i++){
-        backg[i]->dst.x -= 10;
+        backg[i]->dst.x -= 10 + (score->current / 10);
         if(backg[i]->dst.x <= -backg[i]->src.w){
             backg[i]->dst.x += 2 * (backg[i]->src.w);
         }
@@ -82,7 +82,7 @@ void render_score(SDL_Renderer* renderer, score_t* score){
 
 void render_all(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_t** backg, score_t* score, int fin){
     int frame = animation_player(player);
-    if(fin != 0){frame = fin;}
+    if(fin != 0){frame = fin; player->crouch = 0;}
     SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[frame], &player->dst[player->crouch]);
     link_t* temp = ennemies->first;
     if(temp != NULL){
@@ -153,8 +153,9 @@ void gameover(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_t
         SDL_Delay(100);
     }
     if(retry){
-        //free_liste(ennemies);
-        ennemies = initialisation_ennemies(renderer);
+        /*free_liste(ennemies);
+        armada_t* */ennemies = initialisation_ennemies(renderer);
+        score->current = 0;
         main_loop(renderer, player, ennemies, backg, score);
     }
 }
