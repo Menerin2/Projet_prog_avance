@@ -61,3 +61,26 @@ bg_t** init_backgrounds(SDL_Renderer* renderer){
     }
     return bgs;
 }
+
+score_t* init_scores(SDL_Renderer* renderer){
+    score_t* score = (score_t*)malloc(sizeof(score_t));
+    score->current = 0;
+    score->high = read_highscore();
+    score->sprite = loadspritesdino(renderer);
+    rinfo_t** dim = read_infos_nbr();
+    score->src = malloc(sizeof(SDL_Rect) * 11);
+    score->dst = malloc(sizeof(SDL_Rect) * 7);
+    for(int i = 0; i < 11; i++){
+        score->src[i].h = dim[i]->h;
+        score->src[i].w = dim[i]->w;
+        score->src[i].x = dim[i]->x;
+        score->src[i].y = 2; //lol
+    }
+    for(int i = 11; i < 18; i++){//i hate these parameters
+        score->dst[i-11].h = dim[i]->h;
+        score->dst[i-11].w = dim[i]->w;
+        score->dst[i-11].x = 1600 - dim[i]->x;
+        score->dst[i-11].y = dim[i]->y;
+    }
+    return score;
+}

@@ -38,13 +38,13 @@ void insert_first(armada_t* ennemies, ennemi_t* kind, SDL_Rect dst){
     ennemies->first = new_link;
 }
 
-void update_list(armada_t* ennemies, int* score){
+void update_list(armada_t* ennemies, score_t* score){
     if(ennemies->first->dst.x < -ennemies->first->dst.w){
         link_t* temp = malloc(sizeof(link_t));
         memcpy(temp, ennemies->first, sizeof(link_t));
         delete_first(ennemies);
         insert_last(ennemies, temp);
-        ++*score;
+        score->current += 1;
     }
 }
 

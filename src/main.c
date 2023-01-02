@@ -19,7 +19,7 @@ bool collisions(SDL_Rect A, SDL_Rect B){
     return false;
 }
 
-void move(armada_t* ennemies, int* score, bg_t** backg){
+void move(armada_t* ennemies, score_t* score, bg_t** backg){
     link_t* temp = ennemies->first;
     while(temp != NULL){
         temp->dst.x -= 10;
@@ -58,7 +58,29 @@ int animation_bird(ennemi_t* bird){
 
 }
 
-void render_all(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_t** backg){
+void render_score(SDL_Renderer* renderer, score_t* score){
+    int temp = score->current;
+    int un = temp % 10; temp /= 10;
+    int dix = temp % 10; temp /= 10;
+    int cent = temp % 10;
+    SDL_RenderCopy(renderer, score->sprite, &score->src[cent], &score->dst[0]);
+    SDL_RenderCopy(renderer, score->sprite, &score->src[dix], &score->dst[1]);
+    SDL_RenderCopy(renderer, score->sprite, &score->src[un], &score->dst[2]);
+    SDL_RenderCopy(renderer, score->sprite, &score->src[10], &score->dst[3]);
+    if(score->current > score->high){
+        SDL_RenderCopy(renderer, score->sprite, &score->src[cent], &score->dst[4]);
+        SDL_RenderCopy(renderer, score->sprite, &score->src[dix], &score->dst[5]);
+        SDL_RenderCopy(renderer, score->sprite, &score->src[un], &score->dst[6]);
+    } else {
+        temp = score->high;
+        un = temp % 10; temp /= 10; dix = temp % 10; temp /= 10; cent = temp % 10;
+        SDL_RenderCopy(renderer, score->sprite, &score->src[cent], &score->dst[4]);
+        SDL_RenderCopy(renderer, score->sprite, &score->src[dix], &score->dst[5]);
+        SDL_RenderCopy(renderer, score->sprite, &score->src[un], &score->dst[6]);
+    }
+}
+
+void render_all(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_t** backg, score_t* score){
     int frame = animation_player(player);
     SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[frame], &player->dst[player->crouch]);
     link_t* temp = ennemies->first;
@@ -72,14 +94,14 @@ void render_all(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg
     for(int i = 0; i < 2; i++){
         SDL_RenderCopy(renderer, backg[i]->sprite, &backg[i]->src, &backg[i]->dst);
     }
+    render_score(renderer, score);
 }
 
 void main_loop(SDL_Renderer* renderer){
     player_t* player = create_player(renderer);
     armada_t* ennemies = initialisation_ennemies(renderer);
     bg_t** background = init_backgrounds(renderer);
-    int* score = malloc(sizeof(int));
-    *score = 0;
+    score_t* score = init_scores(renderer);
     bool end = true;
     while(end){
         SDL_RenderClear(renderer);
@@ -114,18 +136,20 @@ void main_loop(SDL_Renderer* renderer){
         }
         jump(player);
         move(ennemies, score, background);
-        render_all(renderer, player, ennemies, background);
+        render_all(renderer, player, ennemies, background, score);
         SDL_RenderPresent(renderer);
         SDL_Delay(40);
     }
     free_player(player);
-    printf("score = %d\n", *score);
+    if(score->current > score->high){
+        write_highscore(score->current);
+    }
 }
 
 int main(){
     IMG_Init(IMG_INIT_PNG);
     SDL_Window* fenetre;
-    fenetre = SDL_CreateWindow("Pr Avancé", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 1600, SDL_WINDOW_RESIZABLE);
+    fenetre = SDL_CreateWindow("Pr Avancé", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 400, SDL_WINDOW_RESIZABLE);
     SDL_Renderer* ecran = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
     SDL_SetRenderDrawColor(ecran, 255, 255, 255, 255);
     main_loop(ecran);
