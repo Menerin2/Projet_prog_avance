@@ -106,6 +106,7 @@ void render_retry(SDL_Renderer* renderer){
 }
 
 void render_end(SDL_Renderer* renderer, player_t* player, score_t* score){
+    player->dst[0].y = 300 - 94;
     SDL_RenderCopy(renderer, player->sprite, &player->src_sprite[0], &player->dst[0]);
     render_score(renderer, score);
     render_retry(renderer);
@@ -160,7 +161,6 @@ void gameover(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_t
         armada_t* */ennemies = initialisation_ennemies(renderer);
         score->current = 0;
         score->high = read_highscore();
-        player->dst[0].y = 300 - 94;
         main_loop(renderer, player, ennemies, backg, score);
     }
 }
