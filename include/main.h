@@ -17,4 +17,6 @@
 #include "list.h"
 #include "readables.h"
 
+void main_loop(SDL_Renderer* renderer);
+
 #endif

@@ -21,4 +21,5 @@ SDL_Rect* loadplayerposition();
 SDL_Rect loadBgSrc();
 bg_t** init_backgrounds(SDL_Renderer* renderer);
 score_t* init_scores(SDL_Renderer* renderer);
+SDL_Rect** loadgameoverpos();
 #endif

@@ -52,3 +52,20 @@ void write_highscore(int i){
     fprintf(ptr, "highscore: %d", i);
     fclose(ptr);
 }
+
+rinfo_t** read_info_gameover(){
+    char* nom = "./ressource/info_sprite.txt";
+    FILE* ptr = fopen(nom, "r");
+    fseek(ptr, 399, SEEK_SET);
+    rinfo_t** nbr_lu = malloc(sizeof(rinfo_t*) * 4);
+    for(int i = 0; i < 4; i++){
+        nbr_lu[i] = (rinfo_t*)malloc(sizeof(rinfo_t));
+        fscanf(ptr, "%d\t%d\t%d\t%d\n"
+        , &nbr_lu[i]->h
+        , &nbr_lu[i]->w
+        , &nbr_lu[i]->x
+        , &nbr_lu[i]->y);
+    }
+    fclose(ptr);
+    return nbr_lu;
+}

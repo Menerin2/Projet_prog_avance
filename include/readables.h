@@ -13,5 +13,6 @@ rinfo_t** read_infos();
 rinfo_t** read_infos_nbr();
 int read_highscore();
 void write_highscore(int i);
+rinfo_t** read_info_gameover();
 
 #endif

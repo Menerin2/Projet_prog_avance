@@ -84,3 +84,16 @@ score_t* init_scores(SDL_Renderer* renderer){
     }
     return score;
 }
+
+SDL_Rect** loadgameoverpos(){
+    rinfo_t** dim = read_info_gameover();
+    SDL_Rect** pos = malloc(sizeof(SDL_Rect*) * 4);
+    for(int i = 0; i < 4; i++){
+        pos[i] = (SDL_Rect*)malloc(sizeof(SDL_Rect));
+        pos[i]->h = dim[i]->h;
+        pos[i]->w = dim[i]->w;
+        pos[i]->x = dim[i]->x;
+        pos[i]->y = dim[i]->y;
+    }
+    return pos;
+}
