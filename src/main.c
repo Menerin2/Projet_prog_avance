@@ -152,6 +152,9 @@ void gameover(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_t
         }
         SDL_Delay(100);
     }
+    if(score->current > score->high){
+        write_highscore(score->current);
+    }
     if(retry){
         /*free_liste(ennemies);
         armada_t* */ennemies = initialisation_ennemies(renderer);
@@ -198,9 +201,6 @@ void main_loop(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_
         render_all(renderer, player, ennemies, bg, score, !end);
         SDL_RenderPresent(renderer);
         SDL_Delay(40);
-    }
-    if(score->current > score->high){
-        write_highscore(score->current);
     }
     gameover(renderer, player, ennemies, bg, score);
 }
