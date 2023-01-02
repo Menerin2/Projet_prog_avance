@@ -160,6 +160,7 @@ void gameover(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_t
         armada_t* */ennemies = initialisation_ennemies(renderer);
         score->current = 0;
         score->high = read_highscore();
+        player->dst[0].y = 300 - 94;
         main_loop(renderer, player, ennemies, backg, score);
     }
 }
