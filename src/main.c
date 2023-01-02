@@ -159,6 +159,7 @@ void gameover(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_t
         /*free_liste(ennemies);
         armada_t* */ennemies = initialisation_ennemies(renderer);
         score->current = 0;
+        score->high = read_highscore();
         main_loop(renderer, player, ennemies, backg, score);
     }
 }
