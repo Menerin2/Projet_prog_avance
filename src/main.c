@@ -111,6 +111,13 @@ void render_end(SDL_Renderer* renderer, player_t* player, score_t* score){
     render_retry(renderer);
 }
 
+void free_everything(player_t* player, armada_t* ennemies, bg_t** backg, score_t* score){
+    free_player(player);
+    free_background(backg);
+    free_score(score);
+    free_liste(ennemies);
+}
+
 void gameover(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_t** backg, score_t* score){
     for(int i = 0; i < 10; i++){
         SDL_RenderClear(renderer);
@@ -134,6 +141,7 @@ void gameover(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_t
                 switch(event.key.keysym.sym){
                     case SDLK_ESCAPE:
                         end = false;
+                        retry = false;
                         break;
                     case SDLK_SPACE:
                         end = false;
@@ -142,18 +150,16 @@ void gameover(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_t
                 }
                 break;
         }
+        SDL_Delay(100);
     }
     if(retry){
-        //free_everything
-        main_loop(renderer);
+        //free_liste(ennemies);
+        ennemies = initialisation_ennemies(renderer);
+        main_loop(renderer, player, ennemies, backg, score);
     }
 }
 
-void main_loop(SDL_Renderer* renderer){
-    player_t* player = create_player(renderer);
-    armada_t* ennemies = initialisation_ennemies(renderer);
-    bg_t** background = init_backgrounds(renderer);
-    score_t* score = init_scores(renderer);
+void main_loop(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_t** bg, score_t* score){
     bool end = true;
     while(end){
         SDL_RenderClear(renderer);
@@ -187,16 +193,15 @@ void main_loop(SDL_Renderer* renderer){
                 }
         }
         jump(player);
-        move(ennemies, score, background);
-        render_all(renderer, player, ennemies, background, score, !end);
+        move(ennemies, score, bg);
+        render_all(renderer, player, ennemies, bg, score, !end);
         SDL_RenderPresent(renderer);
         SDL_Delay(40);
     }
     if(score->current > score->high){
         write_highscore(score->current);
     }
-    gameover(renderer, player, ennemies, background, score);
-    free_player(player);
+    gameover(renderer, player, ennemies, bg, score);
 }
 
 int main(){
@@ -205,7 +210,12 @@ int main(){
     fenetre = SDL_CreateWindow("Pr Avancé", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 400, SDL_WINDOW_RESIZABLE);
     SDL_Renderer* ecran = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
     SDL_SetRenderDrawColor(ecran, 255, 255, 255, 255);
-    main_loop(ecran);
+    player_t* player = create_player(ecran);
+    armada_t* ennemies = initialisation_ennemies(ecran);
+    bg_t** background = init_backgrounds(ecran);
+    score_t* score = init_scores(ecran);
+    main_loop(ecran, player, ennemies, background, score);
+    //free_everything(player,ennemies, background, score);
     SDL_DestroyRenderer(ecran);
     SDL_DestroyWindow(fenetre);
     SDL_Quit();

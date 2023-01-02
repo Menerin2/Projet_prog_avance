@@ -13,7 +13,9 @@ player_t* create_player(SDL_Renderer* renderer){
 }
 
 void free_player(player_t* player){
+    free(player->sprite);
     free(player->src_sprite);
+    free(player->dst);
     free(player);
 }
 
@@ -52,5 +54,9 @@ ennemi_t** create_ennemies(SDL_Renderer* renderer){
     ennemies[6]->src[1].x = dimensions[7]->x;
     ennemies[6]->src[1].y = dimensions[7]->y;
     ennemies[6]->fly = true;
+    for(int i = 0; i < 8; i++){
+        free(dimensions[i]);
+    }
+    free(dimensions);
     return (ennemies);
 }

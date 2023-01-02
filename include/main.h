@@ -17,6 +17,6 @@
 #include "list.h"
 #include "readables.h"
 
-void main_loop(SDL_Renderer* renderer);
+void main_loop(SDL_Renderer* renderer, player_t* player, armada_t* ennemies, bg_t** bg, score_t* score);
 
 #endif

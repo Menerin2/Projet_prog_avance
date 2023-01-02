@@ -61,6 +61,11 @@ bg_t** init_backgrounds(SDL_Renderer* renderer){
     }
     return bgs;
 }
+void free_background(bg_t** bg){
+    free(bg[0]);
+    free(bg[1]);
+    free(bg);
+}
 
 score_t* init_scores(SDL_Renderer* renderer){
     score_t* score = (score_t*)malloc(sizeof(score_t));
@@ -75,14 +80,22 @@ score_t* init_scores(SDL_Renderer* renderer){
         score->src[i].w = dim[i]->w;
         score->src[i].x = dim[i]->x;
         score->src[i].y = 2; //lol
+        free(dim[i]);
     }
     for(int i = 11; i < 18; i++){//i hate these parameters
         score->dst[i-11].h = dim[i]->h;
         score->dst[i-11].w = dim[i]->w;
         score->dst[i-11].x = 1600 - dim[i]->x;
         score->dst[i-11].y = dim[i]->y;
+        free(dim[i]);
     }
+    free(dim);
     return score;
+}
+void free_score(score_t* score){
+    free(score->src);
+    free(score->dst);
+    free(score);
 }
 
 SDL_Rect** loadgameoverpos(){
@@ -94,6 +107,7 @@ SDL_Rect** loadgameoverpos(){
         pos[i]->w = dim[i]->w;
         pos[i]->x = dim[i]->x;
         pos[i]->y = dim[i]->y;
+        free(dim[i]);
     }
     return pos;
 }

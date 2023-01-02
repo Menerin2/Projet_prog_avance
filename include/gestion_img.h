@@ -20,6 +20,8 @@ SDL_Rect* loadspritesplayerposition();
 SDL_Rect* loadplayerposition();
 SDL_Rect loadBgSrc();
 bg_t** init_backgrounds(SDL_Renderer* renderer);
+void free_background(bg_t** bg);
 score_t* init_scores(SDL_Renderer* renderer);
+void free_score(score_t* score);
 SDL_Rect** loadgameoverpos();
 #endif

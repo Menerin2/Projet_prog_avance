@@ -17,6 +17,7 @@ void insert_first(armada_t* ennemies, ennemi_t* kind, SDL_Rect dst);
 void update_list(armada_t* ennemies, score_t* score);
 void delete_first(armada_t* ennemies);
 void insert_last(armada_t* ennemies, link_t* last_link);
+void free_liste(armada_t* ennemies);
 
 /* fonctions à faire
     armada_t* initialisation_ennemies(SDL_Renderer renderer);
