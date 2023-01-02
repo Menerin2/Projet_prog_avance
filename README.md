@@ -1,7 +1,8 @@
 # Projet_prog_avance
+# Authors : MAIRE Louis and LOI Léo
 lien du github: https://github.com/Menerin2/Projet_prog_avance
 
-le makefile a les règles :
+le makefile a les règles : 
 -make
 -make clean
 -make fclean
