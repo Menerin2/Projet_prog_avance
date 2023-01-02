@@ -85,7 +85,7 @@ score_t* init_scores(SDL_Renderer* renderer){
     for(int i = 11; i < 18; i++){//i hate these parameters
         score->dst[i-11].h = dim[i]->h;
         score->dst[i-11].w = dim[i]->w;
-        score->dst[i-11].x = 1600 - dim[i]->x;
+        score->dst[i-11].x = dim[i]->x;
         score->dst[i-11].y = dim[i]->y;
         free(dim[i]);
     }
